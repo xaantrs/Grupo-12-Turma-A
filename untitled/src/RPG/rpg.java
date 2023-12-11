@@ -1,11 +1,15 @@
 package RPG;
 
+// Bibliotecas
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Scanner;
 
+// Classe unica
+
 public class rpg {
+
     static Scanner entrada;
     static String nomeUsu;
     static int vida;
@@ -54,13 +58,23 @@ public class rpg {
         estiloEscrita("\n - Capítulo 1: A Origem - \n");
         estiloEscrita("\nMimi, mora em um cidade tranquila, porem há uma semana está sendo atormentada por coisas assustadoras, quando ela chega em seu apartamento escuta algo dentro de sua casa.");
 
-        System.out.println("\nMimi deve abrar a porta?");
+        System.out.println("\nMimi deve abrir a porta?");
         System.out.println("\n1 - Sim");
         System.out.println("2 - Não");
 
-        int escolhaCapitulo1 = entrada.nextInt();
+        teste(entrada.next());
 
-        if (escolhaCapitulo1 == 1) {
+        return pontuacao;
+    }
+
+    static int teste(String escolha) // Função de teste que pega valor e devolve uma ''realidade'' diferente.
+
+    {
+
+        int pontuacao = 0;
+
+        if (escolha.equals("1")) {
+
             System.out.println("" +
                     "⣿⣿⣿⣿⣿⣿⡟⠁⠄⠄⠄⠄⣠⣤⣴⣶⣶⣶⣶⣤⡀⠈⠙⢿⣿⣿⣿⣿⣿\n" +
                     "⣿⣿⣿⣿⣿⡟⠄⠄⠄⠄⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠄⠈⣿⣿⣿⣿⣿\n" +
@@ -94,7 +108,8 @@ public class rpg {
 
             estiloEscrita("\nApós responder, o Homem-Python foge em um piscar de olhos...\n");
 
-        } else if (escolhaCapitulo1 == 2) {
+        } else if (escolha.equals("2")) {
+
             estiloEscrita("\nMimi corre para o apartamento de sua amiga, ao chegar se depara com a porta já aberta...");
             estiloEscrita("\nAo ver sua amiga, Mimi cai no chão desesperada...\n");
             System.out.println("\n2         ⠤⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⢠⡞⠁⣸⣯⣿⣿⣿⣿⣿⠟⠁⠐⠉⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
@@ -304,10 +319,11 @@ public class rpg {
     }
 
 
-
     // Funções - Jogo
 
-
+    static boolean verificarResposta(char respostaUsuario, char respostaCorreta) {
+        return respostaUsuario == respostaCorreta;
+    }
 
     static int apresentarDesafio(String pergunta, String respostaCorreta) {
         ArrayList<Character> opcoesOriginais = new ArrayList<>();
@@ -320,15 +336,13 @@ public class rpg {
         Collections.shuffle(opcoesOriginais);
         estiloEscrita("\n" + pergunta);
 
-        for (int i = 0; i < opcoesOriginais.size(); i++) {
-            char opcaoEmbaralhada = opcoesOriginais.get(i);
+        for (char opcaoEmbaralhada : opcoesOriginais) {
             System.out.println(opcaoEmbaralhada + ") " + "Opção " + opcaoEmbaralhada);
         }
 
         char respostaUsuario = entrada.next().charAt(0);
-        char respostaCorretaEmbaralhada = opcoesOriginais.get("abcd".indexOf(respostaCorreta.charAt(0)));
 
-        if (verificarResposta(respostaUsuario, String.valueOf(respostaCorretaEmbaralhada))) {
+        if (verificarResposta(respostaUsuario, respostaCorreta.charAt(0))) {
             estiloEscrita("\nResposta correta! Avance para o próximo desafio.\n");
             return 1;
         } else {
@@ -337,6 +351,7 @@ public class rpg {
             return 0;
         }
     }
+
 
     static void estiloEscrita(String texto) {
         char[] var1 = texto.toCharArray();
@@ -352,7 +367,6 @@ public class rpg {
                 var6.printStackTrace();
             }
         }
-
     }
 
     static int creditos() {
@@ -380,9 +394,6 @@ public class rpg {
         System.out.flush();
     }
 
-    static boolean verificarResposta(char respostaUsuario, String respostaCorreta) {
-        return Character.toLowerCase(respostaUsuario) == respostaCorreta.charAt(0);
-    }
 
     static {
         entrada = new Scanner(System.in);
